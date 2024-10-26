@@ -1,0 +1,8 @@
+.DS_Store
+.env*.local
+*.pem
+*.tsbuildinfo
+/.next
+/node_modules
+/out
+next-env.d.ts
