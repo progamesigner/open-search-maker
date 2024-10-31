@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import type { PropsWithChildren } from 'react';
 
+import { FormProvider } from '../context/form';
+
 import './index.css';
 
 export const metadata: Metadata = {
@@ -12,7 +14,9 @@ export const metadata: Metadata = {
 export default function Layout({ children }: PropsWithChildren): JSX.Element {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <FormProvider>{children}</FormProvider>
+      </body>
     </html>
   );
 }
