@@ -2,9 +2,11 @@ import {
   type ChangeEventHandler,
   type FormEventHandler,
   useCallback,
+  useContext,
   useMemo,
   useState,
 } from 'react';
+import { FormContext } from '../../context/form';
 import { useOpenSearchDescription } from '../../lib/openSearch';
 
 export interface UsePageStateProps {
@@ -18,6 +20,8 @@ export interface UsePageState {
   hasValidXML: boolean;
   image: string;
   inputEncoding: string;
+  isUploaded: boolean;
+  isUploading: boolean;
   name: string;
   onDescriptionChanged: ChangeEventHandler<HTMLInputElement>;
   onImageChanged: ChangeEventHandler<HTMLInputElement>;
@@ -25,12 +29,15 @@ export interface UsePageState {
   onInputEncodingChanged: ChangeEventHandler<HTMLInputElement>;
   onNameChanged: ChangeEventHandler<HTMLInputElement>;
   onParamsChanged: ChangeEventHandler<HTMLInputElement>;
+  onShowAdvancedOptionsChanged: ChangeEventHandler<HTMLInputElement>;
   onSubmitted: FormEventHandler<HTMLFormElement>;
   onSuggestionURLChanged: ChangeEventHandler<HTMLInputElement>;
   onURLChanged: ChangeEventHandler<HTMLInputElement>;
   onUsePostMethodChanged: ChangeEventHandler<HTMLInputElement>;
   params: string;
+  showAdvancedOptions: boolean;
   suggestionURL: string;
+  uploadError: Error | null;
   url: string;
   usePostMethod: boolean;
   xml: string | null;
@@ -40,14 +47,30 @@ export default function usePageState({
   onRedirect,
   onUpload,
 }: UsePageStateProps): UsePageState {
-  const [description, setDescription] = useState<string | null>(null);
-  const [image, setImage] = useState<string | null>(null);
-  const [inputEncoding, setInputEncoding] = useState<string>('UTF-8');
-  const [name, setName] = useState<string | null>(null);
-  const [params, setParams] = useState<string | null>(null);
-  const [suggestionURL, setSuggestionURL] = useState<string | null>(null);
-  const [url, setURL] = useState<string | null>(null);
-  const [usePostMethod, setUsePostMethod] = useState<boolean>(false);
+  const {
+    description,
+    image,
+    inputEncoding,
+    name,
+    params,
+    setDescription,
+    setImage,
+    setInputEncoding,
+    setName,
+    setParams,
+    setSuggestionURL,
+    setURL,
+    setUsePostMethod,
+    suggestionURL,
+    url,
+    usePostMethod,
+  } = useContext(FormContext);
+
+  const [showAdvancedOptions, setShowAdvancedOptions] =
+    useState<boolean>(false);
+  const [isUploaded, setIsUploaded] = useState<boolean>(false);
+  const [isUploading, setIsUploading] = useState<boolean>(false);
+  const [uploadError, setUploadError] = useState<Error | null>(null);
 
   const isValid = useMemo(() => name !== null && url !== null, [name, url]);
 
@@ -63,11 +86,21 @@ export default function usePageState({
 
   const upload = useCallback<(content: string) => Promise<void>>(
     async (content: string): Promise<void> => {
+      setIsUploaded(false);
+      setIsUploading(true);
+
       try {
         const url = await onUpload(content);
         onRedirect(name ?? '', url);
+        setIsUploaded(true);
       } catch (error) {
-        console.error(error);
+        if (error instanceof Error) {
+          setUploadError(error);
+        } else {
+          setUploadError(new Error(String(error)));
+        }
+      } finally {
+        setIsUploading(false);
       }
     },
     [name, onRedirect, onUpload],
@@ -78,12 +111,12 @@ export default function usePageState({
   >(
     ({ target: { value } }): void =>
       setDescription(value !== '' ? value : null),
-    [],
+    [setDescription],
   );
 
   const onImageChanged = useCallback<ChangeEventHandler<HTMLInputElement>>(
     ({ target: { value } }): void => setImage(value !== '' ? value : null),
-    [],
+    [setImage],
   );
 
   const onImageFileChanged = useCallback<ChangeEventHandler<HTMLInputElement>>(
@@ -98,7 +131,7 @@ export default function usePageState({
         reader.readAsDataURL(files[0]);
       }
     },
-    [],
+    [setImage],
   );
 
   const onInputEncodingChanged = useCallback<
@@ -106,17 +139,37 @@ export default function usePageState({
   >(
     ({ target: { value } }): void =>
       setInputEncoding(value !== '' ? value : 'UTF-8'),
-    [],
+    [setInputEncoding],
   );
 
   const onNameChanged = useCallback<ChangeEventHandler<HTMLInputElement>>(
     ({ target: { value } }): void => setName(value !== '' ? value : null),
-    [],
+    [setName],
   );
 
   const onParamsChanged = useCallback<ChangeEventHandler<HTMLInputElement>>(
     ({ target: { value } }): void => setParams(value !== '' ? value : null),
-    [],
+    [setParams],
+  );
+
+  const onShowAdvancedOptionsChanged = useCallback<
+    ChangeEventHandler<HTMLInputElement>
+  >(
+    ({ target: { checked } }): void => {
+      setDescription(null);
+      setInputEncoding('UTF-8');
+      setParams(null);
+      setShowAdvancedOptions(checked);
+      setSuggestionURL(null);
+      setUsePostMethod(false);
+    },
+    [
+      setDescription,
+      setInputEncoding,
+      setParams,
+      setSuggestionURL,
+      setUsePostMethod,
+    ],
   );
 
   const onSubmitted = useCallback<FormEventHandler<HTMLFormElement>>(
@@ -132,7 +185,7 @@ export default function usePageState({
   >(
     ({ target: { value } }): void =>
       setSuggestionURL(value !== '' ? value : null),
-    [],
+    [setSuggestionURL],
   );
 
   const onURLChanged = useCallback<ChangeEventHandler<HTMLInputElement>>(
@@ -151,15 +204,18 @@ export default function usePageState({
         setURL(value !== '' ? value : null);
       }
     },
-    [],
+    [setImage, setURL],
   );
 
   const onUsePostMethodChanged = useCallback<
     ChangeEventHandler<HTMLInputElement>
-  >(({ target: { checked } }): void => {
-    setUsePostMethod(checked);
-    setParams(null);
-  }, []);
+  >(
+    ({ target: { checked } }): void => {
+      setUsePostMethod(checked);
+      setParams(null);
+    },
+    [setParams, setUsePostMethod],
+  );
 
   return {
     description: description ?? '',
@@ -167,6 +223,8 @@ export default function usePageState({
     hasValidXML: isValid,
     image: image ?? '',
     inputEncoding,
+    isUploaded,
+    isUploading,
     name: name ?? '',
     onDescriptionChanged,
     onImageChanged,
@@ -174,12 +232,15 @@ export default function usePageState({
     onInputEncodingChanged,
     onNameChanged,
     onParamsChanged,
+    onShowAdvancedOptionsChanged,
     onSubmitted,
     onSuggestionURLChanged,
     onURLChanged,
     onUsePostMethodChanged,
     params: params ?? '',
+    showAdvancedOptions,
     suggestionURL: suggestionURL ?? '',
+    uploadError,
     url: url ?? '',
     usePostMethod,
     xml: isValid ? xml : null,
