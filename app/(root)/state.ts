@@ -156,12 +156,14 @@ export default function usePageState({
     ChangeEventHandler<HTMLInputElement>
   >(
     ({ target: { checked } }): void => {
-      setDescription(null);
-      setInputEncoding('UTF-8');
-      setParams(null);
       setShowAdvancedOptions(checked);
-      setSuggestionURL(null);
-      setUsePostMethod(false);
+      if (!checked) {
+        setDescription(null);
+        setInputEncoding('UTF-8');
+        setParams(null);
+        setSuggestionURL(null);
+        setUsePostMethod(false);
+      }
     },
     [
       setDescription,
