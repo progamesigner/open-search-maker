@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function Layout({ children }: PropsWithChildren): JSX.Element {
   return (
     <html lang="en">
-      <body className="flex flex-col text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-900 w-[1280px] h-[100vh] mx-auto px-8">
+      <body className="flex flex-col text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-900 w-full max-w-[1280px] h-[100vh] mx-auto px-8">
         <header className="text-center mt-16">
           <h1 className="text-6xl font-bold">Open Search Maker</h1>
         </header>

@@ -42,13 +42,13 @@ export function PageComponent({
 
   return (
     <>
-      <div className="flex flex-row gap-4">
+      <div className="flex flex-col md:flex-row gap-4">
         <XMLPreview
-          className="basis-0 flex-grow overflow-x-scroll"
+          className="order-3 md:order-1 md:basis-0 flex-grow overflow-x-scroll"
           xml={hasValidXML ? xml : null}
         />
-        <div className="border border-gray-300 dark:border-gray-700" />
-        <div className="basis-0 flex-grow">
+        <div className="order-2 border border-gray-300 dark:border-gray-700" />
+        <div className="order-1 md:order-3 basis-0 flex-grow">
           <form className="flex flex-col gap-4" onSubmit={onSubmitted}>
             <div>
               <Toggle
