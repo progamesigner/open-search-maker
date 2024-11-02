@@ -44,6 +44,17 @@ export interface UsePageState {
   xml: string | null;
 }
 
+function isValidURL(url: string | null): boolean {
+  try {
+    if (url !== null) {
+      new URL(url);
+    }
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
 export function usePageState({
   onRedirect,
   onUpload,
@@ -73,7 +84,18 @@ export function usePageState({
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const [uploadError, setUploadError] = useState<Error | null>(null);
 
-  const isValid = useMemo(() => name !== null && url !== null, [name, url]);
+  const isValidXML = useMemo(() => {
+    try {
+      return (
+        name !== null &&
+        url !== null &&
+        isValidURL(url) &&
+        isValidURL(suggestionURL)
+      );
+    } catch (error) {
+      return false;
+    }
+  }, [name, url, suggestionURL]);
 
   const xml = useOpenSearchDescription({
     description,
@@ -233,7 +255,7 @@ export function usePageState({
 
   return {
     description: description ?? '',
-    hasValidXML: isValid,
+    hasValidXML: isValidXML,
     image: image ?? '',
     inputEncoding,
     isUploaded,
@@ -257,6 +279,6 @@ export function usePageState({
     uploadError,
     url: url ?? '',
     usePostMethod,
-    xml: isValid ? xml : null,
+    xml: isValidXML ? xml : null,
   };
 }

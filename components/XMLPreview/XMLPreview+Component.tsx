@@ -30,7 +30,7 @@ export function XMLPreviewComponent({
             <pre>{xml}</pre>
           ) : (
             <p className="text-center text-red-700 dark:text-red-300">
-              Name &amp; URL are required.
+              Name &amp; valid URLs are required.
             </p>
           )}
         </div>
