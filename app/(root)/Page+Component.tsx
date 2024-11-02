@@ -138,7 +138,7 @@ export function PageComponent({
                 onFileChanged={onImageFileChanged}
               />
               <p className="text-gray-500 dark:text-gray-400">
-                Icon should be at least 16 x 16 pixels -
+                Icon should be at least 16&#215;16 pixels -
                 <a
                   className="text-blue-500 dark:text-blue-400 mx-1"
                   href="https://developer.mozilla.org/docs/Web/URI/Schemes/data"

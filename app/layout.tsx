@@ -23,11 +23,13 @@ export default function Layout({ children }: PropsWithChildren): JSX.Element {
         </main>
         <footer className="flex justify-center mt-auto p-4">
           <p>
-            Made with <span className="text-red-600">&hearts;</span> by{' '}
-            <a className="text-blue-600" href="https://progamesigner.com">
+            Made with <span className="text-red-700">&hearts;</span> by
+            <a
+              className="text-blue-700 dark:text-blue-300 hover:text-blue-600 dark:hover:text-blue-400 mx-1"
+              href="https://progamesigner.com"
+            >
               progamesigner
             </a>
-            .
           </p>
         </footer>
       </body>
