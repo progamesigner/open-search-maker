@@ -14,12 +14,12 @@ export function ErrorDialog({
 }: ErrorDialogProps): JSX.Element {
   return (
     <dialog
-      className={`${open ? 'fixed' : 'hidden'} inset-0 flex justify-center items-center text-gray-700 dark:text-gray-300 bg-gray-900/30 dark:bg-gray-100/30 backdrop-blur w-full h-full`}
+      className={`${open ? 'fixed' : 'hidden'} inset-0 flex h-full w-full items-center justify-center bg-gray-900/30 text-gray-700 backdrop-blur dark:bg-gray-100/30 dark:text-gray-300`}
       open={open}
     >
-      <div className="flex flex-col gap-4 rounded bg-gray-100 dark:bg-gray-900 shadow p-4">
-        <div className="flex flex-col gap-2 max-w-80">
-          <p className="text-2xl font-semibold">Something Wrong!</p>
+      <div className='flex flex-col gap-4 rounded bg-gray-100 p-4 shadow dark:bg-gray-900'>
+        <div className='flex max-w-80 flex-col gap-2'>
+          <p className='font-semibold text-2xl'>Something Wrong!</p>
           {message !== null ? <p>{message}</p> : null}
         </div>
         <Button className="ms-auto" onClick={onClosed}>

@@ -8,6 +8,13 @@
   "formatter": {
     "indentStyle": "space"
   },
+  "linter": {
+    "rules": {
+      "nursery": {
+        "useSortedClasses": "error"
+      }
+    }
+  },
   "javascript": {
     "formatter": {
       "quoteStyle": "single"

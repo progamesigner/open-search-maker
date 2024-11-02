@@ -42,13 +42,13 @@ export function PageComponent({
 
   return (
     <>
-      <div className="flex flex-col md:flex-row gap-4">
+      <div className="flex flex-col gap-4 md:flex-row">
         <XMLPreview
-          className="order-3 md:order-1 md:basis-0 flex-grow overflow-x-scroll"
+          className="order-3 flex-grow overflow-x-hidden md:order-1 md:basis-0"
           xml={hasValidXML ? xml : null}
         />
         <div className="order-2 border border-gray-300 dark:border-gray-700" />
-        <div className="order-1 md:order-3 basis-0 flex-grow">
+        <div className="order-1 flex-grow basis-0 md:order-3">
           <form className="flex flex-col gap-4" onSubmit={onSubmitted}>
             <div>
               <Toggle
@@ -84,10 +84,10 @@ export function PageComponent({
 
             <div className="flex flex-col gap-1">
               <TextInput
+                type="url"
                 label="Search URL"
                 name="url"
                 placeholder="https://example.org/search?q=%s"
-                type="url"
                 required
                 value={url}
                 onChange={onURLChanged}
@@ -95,7 +95,7 @@ export function PageComponent({
               <p className="text-gray-500 dark:text-gray-400">
                 <span className="font-bold">%s</span> will be substituted with
                 query
-                <code className="text-red-700 dark:text-red-300 mx-1">
+                <code className="mx-1 text-red-700 dark:text-red-300">
                   &#123;searchTerms&#125;
                 </code>
                 .
@@ -110,7 +110,7 @@ export function PageComponent({
                 >
                   <span>
                     Use
-                    <code className="text-red-700 dark:text-red-300 mx-1">
+                    <code className="mx-1 text-red-700 dark:text-red-300">
                       POST
                     </code>
                     query parameters
@@ -141,7 +141,7 @@ export function PageComponent({
               <p className="text-gray-500 dark:text-gray-400">
                 Icon should be at least 16&#215;16 pixels -
                 <a
-                  className="text-blue-500 dark:text-blue-400 mx-1"
+                  className="mx-1 text-blue-500 dark:text-blue-400"
                   href="https://developer.mozilla.org/docs/Web/URI/Schemes/data"
                   target="_blank"
                   rel="noreferrer"
@@ -165,6 +165,7 @@ export function PageComponent({
             {showAdvancedOptions ? (
               <div className="flex flex-col gap-1">
                 <TextInput
+                  type="url"
                   label="Suggestion URL"
                   placeholder="https://example.org/search?q=%s"
                   value={suggestionURL}
@@ -177,7 +178,7 @@ export function PageComponent({
                     &#123;searchTerms&#125;
                   </code>
                   ) and will be
-                  <code className="text-red-700 dark:text-red-300 mx-1">
+                  <code className="mx-1 text-red-700 dark:text-red-300">
                     application/x-suggestions+json
                   </code>
                   type URL.
@@ -186,7 +187,7 @@ export function PageComponent({
             ) : null}
 
             <div className="flex">
-              <Button className="ms-auto" type="submit">
+              <Button type="submit" className="ms-auto" disabled={!hasValidXML}>
                 {submitButtonText}
               </Button>
             </div>
