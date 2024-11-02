@@ -1,6 +1,7 @@
 import {
   type ChangeEventHandler,
   type FormEventHandler,
+  type MouseEventHandler,
   useCallback,
   useContext,
   useMemo,
@@ -16,7 +17,6 @@ export interface UsePageStateProps {
 
 export interface UsePageState {
   description: string;
-  hasImage: boolean;
   hasValidXML: boolean;
   image: string;
   inputEncoding: string;
@@ -24,6 +24,7 @@ export interface UsePageState {
   isUploading: boolean;
   name: string;
   onDescriptionChanged: ChangeEventHandler<HTMLInputElement>;
+  onDialogCloseClicked: MouseEventHandler<HTMLButtonElement>;
   onImageChanged: ChangeEventHandler<HTMLInputElement>;
   onImageFileChanged: ChangeEventHandler<HTMLInputElement>;
   onInputEncodingChanged: ChangeEventHandler<HTMLInputElement>;
@@ -43,7 +44,7 @@ export interface UsePageState {
   xml: string | null;
 }
 
-export default function usePageState({
+export function usePageState({
   onRedirect,
   onUpload,
 }: UsePageStateProps): UsePageState {
@@ -58,16 +59,16 @@ export default function usePageState({
     setInputEncoding,
     setName,
     setParams,
+    setShowAdvancedOptions,
     setSuggestionURL,
     setURL,
     setUsePostMethod,
+    showAdvancedOptions,
     suggestionURL,
     url,
     usePostMethod,
   } = useContext(FormContext);
 
-  const [showAdvancedOptions, setShowAdvancedOptions] =
-    useState<boolean>(false);
   const [isUploaded, setIsUploaded] = useState<boolean>(false);
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const [uploadError, setUploadError] = useState<Error | null>(null);
@@ -113,6 +114,16 @@ export default function usePageState({
       setDescription(value !== '' ? value : null),
     [setDescription],
   );
+
+  const onDialogCloseClicked = useCallback<
+    MouseEventHandler<HTMLButtonElement>
+  >((event): void => {
+    setIsUploaded(false);
+    setIsUploading(false);
+    setUploadError(null);
+
+    event.preventDefault();
+  }, []);
 
   const onImageChanged = useCallback<ChangeEventHandler<HTMLInputElement>>(
     ({ target: { value } }): void => setImage(value !== '' ? value : null),
@@ -169,6 +180,7 @@ export default function usePageState({
       setDescription,
       setInputEncoding,
       setParams,
+      setShowAdvancedOptions,
       setSuggestionURL,
       setUsePostMethod,
     ],
@@ -221,7 +233,6 @@ export default function usePageState({
 
   return {
     description: description ?? '',
-    hasImage: image !== null,
     hasValidXML: isValid,
     image: image ?? '',
     inputEncoding,
@@ -229,6 +240,7 @@ export default function usePageState({
     isUploading,
     name: name ?? '',
     onDescriptionChanged,
+    onDialogCloseClicked,
     onImageChanged,
     onImageFileChanged,
     onInputEncodingChanged,

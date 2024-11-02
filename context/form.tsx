@@ -20,9 +20,11 @@ interface FormContextState {
   setInputEncoding: Dispatch<SetStateAction<string>>;
   setName: Dispatch<SetStateAction<string | null>>;
   setParams: Dispatch<SetStateAction<string | null>>;
+  setShowAdvancedOptions: Dispatch<SetStateAction<boolean>>;
   setSuggestionURL: Dispatch<SetStateAction<string | null>>;
   setURL: Dispatch<SetStateAction<string | null>>;
   setUsePostMethod: Dispatch<SetStateAction<boolean>>;
+  showAdvancedOptions: boolean;
   suggestionURL: string | null;
   url: string | null;
   usePostMethod: boolean;
@@ -39,9 +41,11 @@ export const FormContext = createContext<FormContextState>({
   setInputEncoding: () => {},
   setName: () => {},
   setParams: () => {},
+  setShowAdvancedOptions: () => {},
   setSuggestionURL: () => {},
   setURL: () => {},
   setUsePostMethod: () => {},
+  showAdvancedOptions: false,
   suggestionURL: null,
   url: null,
   usePostMethod: false,
@@ -53,6 +57,8 @@ export function FormProvider({ children }: PropsWithChildren): JSX.Element {
   const [inputEncoding, setInputEncoding] = useState<string>('UTF-8');
   const [name, setName] = useState<string | null>(null);
   const [params, setParams] = useState<string | null>(null);
+  const [showAdvancedOptions, setShowAdvancedOptions] =
+    useState<boolean>(false);
   const [suggestionURL, setSuggestionURL] = useState<string | null>(null);
   const [url, setURL] = useState<string | null>(null);
   const [usePostMethod, setUsePostMethod] = useState<boolean>(false);
@@ -69,9 +75,11 @@ export function FormProvider({ children }: PropsWithChildren): JSX.Element {
       setInputEncoding,
       setName,
       setParams,
+      setShowAdvancedOptions,
       setSuggestionURL,
       setURL,
       setUsePostMethod,
+      showAdvancedOptions,
       suggestionURL,
       url,
       usePostMethod,
@@ -82,6 +90,7 @@ export function FormProvider({ children }: PropsWithChildren): JSX.Element {
       inputEncoding,
       name,
       params,
+      showAdvancedOptions,
       suggestionURL,
       url,
       usePostMethod,
