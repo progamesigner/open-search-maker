@@ -9,7 +9,12 @@ export function TextInputComponent({
 }: UseTextInputState): JSX.Element {
   return (
     <label className="flex flex-col gap-1">
-      {label ? <span className="font-semibold">{label}</span> : null}
+      {label ? (
+        <span className="font-semibold">
+          {label}
+          {required ? <span className="text-red-700 ms-1">&#42;</span> : null}
+        </span>
+      ) : null}
       <input
         type={type}
         className={`rounded text-gray-600 dark:text-gray-300 bg-gray-300 dark:bg-gray-600 hover:bg-gray-200 hover:dark:bg-gray-700 disabled:opacity-30 transition-all p-2 ${className}`}

@@ -10,7 +10,12 @@ export function ImageInputComponent({
 }: UseImageInputState): JSX.Element {
   return (
     <label className="flex flex-col gap-1">
-      {label ? <span className="font-semibold">{label}</span> : null}
+      {label ? (
+        <span className="font-semibold">
+          {label}
+          {required ? <span className="text-red-700 ms-1">&#42;</span> : null}
+        </span>
+      ) : null}
       <div className="flex">
         <div className="relative aspect-square rounded-s text-gray-300 dark:text-gray-600 bg-gray-600 dark:bg-gray-300">
           <div className="absolute inset-1">

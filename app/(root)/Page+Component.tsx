@@ -74,7 +74,7 @@ export function PageComponent({
             {showAdvancedOptions ? (
               <div>
                 <TextInput
-                  label="Description (Optional)"
+                  label="Description"
                   maxLength={1024}
                   value={description}
                   onChange={onDescriptionChanged}
@@ -133,6 +133,7 @@ export function PageComponent({
             <div className="flex flex-col gap-1">
               <ImageInput
                 label="Icon"
+                required
                 value={image}
                 onChange={onImageChanged}
                 onFileChanged={onImageFileChanged}
@@ -154,7 +155,7 @@ export function PageComponent({
             {showAdvancedOptions ? (
               <div>
                 <TextInput
-                  label="Input Encoding (Optional)"
+                  label="Input Encoding"
                   value={inputEncoding}
                   onChange={onInputEncodingChanged}
                 />
@@ -164,7 +165,7 @@ export function PageComponent({
             {showAdvancedOptions ? (
               <div className="flex flex-col gap-1">
                 <TextInput
-                  label="Suggestion URL (Optional)"
+                  label="Suggestion URL"
                   placeholder="https://example.org/search?q=%s"
                   value={suggestionURL}
                   onChange={onSuggestionURLChanged}
