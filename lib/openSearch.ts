@@ -2,7 +2,7 @@ import { encode } from 'html-entities';
 import { useMemo } from 'react';
 import { default as formatter } from 'xml-formatter';
 
-const XML_DECLARATION = '<?xml version="1.0" encoding="UTF-8"?>';
+const XML_DECLARATION = '<?xml version="1.0" encoding="UTF-8" ?>';
 
 export interface OpenSearchDescriptionOptions {
   description: string | null;
@@ -106,9 +106,11 @@ function addURLElement(
   element.setAttributeNS(null, 'type', 'text/html');
   if (params !== null) {
     element.setAttributeNS(null, 'method', 'POST');
+  } else {
+    element.setAttributeNS(null, 'method', 'GET');
   }
   element.setAttributeNS(null, 'rel', 'results');
-  element.textContent = url.replace(/%s/g, '{searchTerms}');
+  element.setAttributeNS(null, 'template', url.replace(/%s/g, '{searchTerms}'));
   xml.documentElement.appendChild(element);
 
   if (params !== null) {
