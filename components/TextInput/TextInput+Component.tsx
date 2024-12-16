@@ -12,12 +12,12 @@ export function TextInputComponent({
       {label ? (
         <span className="font-semibold">
           {label}
-          {required ? <span className='ms-1 text-red-700'>&#42;</span> : null}
+          {required ? <span className="ms-1 text-red-700">&#42;</span> : null}
         </span>
       ) : null}
       <input
         type={type}
-        className={`rounded bg-gray-300 p-2 text-gray-600 transition-all hover:bg-gray-200 disabled:opacity-30 dark:bg-gray-600 dark:text-gray-300 hover:dark:bg-gray-700 ${className}`}
+        className={`rounded bg-gray-300 p-2 text-gray-600 transition-all hover:bg-gray-200 disabled:opacity-30 dark:bg-gray-600 dark:text-gray-300 hover:dark:bg-gray-700 ${className} outline-none`}
         required={required}
         {...props}
       />

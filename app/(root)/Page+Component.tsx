@@ -95,8 +95,8 @@ export function PageComponent({
                 onChange={onURLChanged}
               />
               <p className="text-gray-500 dark:text-gray-400">
-                <span className="font-bold">%s</span> will be substituted with
-                query
+                The variable <span className="font-bold">%s</span> will be
+                substituted with query
                 <code className="mx-1 text-red-700 dark:text-red-300">
                   &#123;searchTerms&#125;
                 </code>

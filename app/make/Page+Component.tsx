@@ -17,7 +17,7 @@ export function PageComponent({
           Click <strong>Add "{name}"</strong>.
         </li>
         <li>
-          Go to
+          Go to the preference page
           <mark
             className="mx-1 rounded bg-red-400 px-1 text-gray-900 dark:bg-red-500 dark:text-gray-100"
             onClick={onMarkClicked}
