@@ -25,6 +25,7 @@ export function PageComponent({
   onShowAdvancedOptionsChanged,
   onSubmitted,
   onSuggestionURLChanged,
+  onURLBlur,
   onURLChanged,
   onUsePostMethodChanged,
   params,
@@ -90,6 +91,7 @@ export function PageComponent({
                 placeholder="https://example.org/search?q=%s"
                 required
                 value={url}
+                onBlur={onURLBlur}
                 onChange={onURLChanged}
               />
               <p className="text-gray-500 dark:text-gray-400">

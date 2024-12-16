@@ -33,6 +33,7 @@ export interface UsePageState {
   onShowAdvancedOptionsChanged: ChangeEventHandler<HTMLInputElement>;
   onSubmitted: FormEventHandler<HTMLFormElement>;
   onSuggestionURLChanged: ChangeEventHandler<HTMLInputElement>;
+  onURLBlur: ChangeEventHandler<HTMLInputElement>;
   onURLChanged: ChangeEventHandler<HTMLInputElement>;
   onUsePostMethodChanged: ChangeEventHandler<HTMLInputElement>;
   params: string;
@@ -224,23 +225,25 @@ export function usePageState({
     [setSuggestionURL],
   );
 
-  const onURLChanged = useCallback<ChangeEventHandler<HTMLInputElement>>(
+  const onURLBlur = useCallback<ChangeEventHandler<HTMLInputElement>>(
     ({ target: { value } }): void => {
       try {
         const url = new URL(value);
         setImage((image) => {
-          if (image === null) {
-            return `${url.origin}/favicon.ico`;
-          }
-          return image;
+          return image === null ? `${url.origin}/favicon.ico` : image;
         });
       } catch (error) {
         // note: do nothing here
-      } finally {
-        setURL(value !== '' ? value : null);
       }
     },
-    [setImage, setURL],
+    [setImage],
+  );
+
+  const onURLChanged = useCallback<ChangeEventHandler<HTMLInputElement>>(
+    ({ target: { value } }): void => {
+      setURL(value !== '' ? value : null);
+    },
+    [setURL],
   );
 
   const onUsePostMethodChanged = useCallback<
@@ -271,6 +274,7 @@ export function usePageState({
     onShowAdvancedOptionsChanged,
     onSubmitted,
     onSuggestionURLChanged,
+    onURLBlur,
     onURLChanged,
     onUsePostMethodChanged,
     params: params ?? '',
