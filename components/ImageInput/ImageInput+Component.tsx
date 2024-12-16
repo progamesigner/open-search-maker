@@ -17,7 +17,7 @@ export function ImageInputComponent({
         </span>
       ) : null}
       <div className="flex">
-        <div className="relative aspect-square rounded-s bg-gray-600 text-gray-300 dark:bg-gray-300 dark:text-gray-600">
+        <div className="relative aspect-square w-[2.5rem] shrink-0 rounded-s bg-gray-600 text-gray-300 dark:bg-gray-300 dark:text-gray-600">
           <div className="absolute inset-1">
             {value !== null && value !== '' ? (
               <img className="h-full w-full object-cover" src={value} alt="" />
@@ -30,7 +30,7 @@ export function ImageInputComponent({
         </div>
         <input
           type="text"
-          className={`flex-grow bg-gray-300 p-2 text-gray-600 transition-opacity disabled:opacity-30 dark:bg-gray-600 dark:text-gray-300 ${className} outline-none`}
+          className={`flex-grow bg-gray-300 p-2 text-gray-600 transition-opacity disabled:opacity-30 dark:bg-gray-600 dark:text-gray-300 ${className} rounded-none outline-none`}
           required={required}
           value={value ?? ''}
           {...props}
