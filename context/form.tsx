@@ -98,7 +98,5 @@ export function FormProvider({ children }: PropsWithChildren): JSX.Element {
     ],
   );
 
-  return (
-    <FormContext.Provider value={context}>{children}</FormContext.Provider>
-  );
+  return <FormContext value={context}>{children}</FormContext>;
 }

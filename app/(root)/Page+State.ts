@@ -2,8 +2,8 @@ import {
   type ChangeEventHandler,
   type FormEventHandler,
   type MouseEventHandler,
+  use,
   useCallback,
-  useContext,
   useMemo,
   useState,
 } from 'react';
@@ -79,7 +79,7 @@ export function usePageState({
     suggestionURL,
     url,
     usePostMethod,
-  } = useContext(FormContext);
+  } = use(FormContext);
 
   const [isUploaded, setIsUploaded] = useState<boolean>(false);
   const [isUploading, setIsUploading] = useState<boolean>(false);
