@@ -1,5 +1,5 @@
 import { useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { type JSX, useEffect } from 'react';
 
 export interface OpenSearchManagerProps {
   onParsed: (name: string | null) => void;

@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import type { UseXMLPreviewState } from './XMLPreview+State';
 
 export function XMLPreviewComponent({
@@ -24,7 +25,7 @@ export function XMLPreviewComponent({
           ?
         </a>
       </div>
-      <div className="rounded rounded-tl-none bg-gray-300 p-2 dark:bg-gray-700">
+      <div className="rounded-sm rounded-tl-none bg-gray-300 p-2 dark:bg-gray-700">
         <div className="overflow-x-scroll py-4">
           {xml !== null ? (
             <pre>{xml}</pre>

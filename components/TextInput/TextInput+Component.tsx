@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import type { UseTextInputState } from './TextInput+State';
 
 export function TextInputComponent({
@@ -17,7 +18,7 @@ export function TextInputComponent({
       ) : null}
       <input
         type={type}
-        className={`rounded bg-gray-300 p-2 text-gray-600 transition-all hover:bg-gray-200 disabled:opacity-30 dark:bg-gray-600 dark:text-gray-300 hover:dark:bg-gray-700 ${className} outline-none`}
+        className={`rounded-sm bg-gray-300 p-2 text-gray-600 transition-all hover:bg-gray-200 disabled:opacity-30 dark:bg-gray-600 dark:text-gray-300 dark:hover:bg-gray-700 ${className} outline-hidden`}
         required={required}
         {...props}
       />

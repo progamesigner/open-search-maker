@@ -1,4 +1,4 @@
-import type { MouseEventHandler } from 'react';
+import type { JSX, MouseEventHandler } from 'react';
 import Button from '../../components/Button/Button';
 
 export interface ErrorDialogProps {
@@ -14,10 +14,10 @@ export function ErrorDialog({
 }: ErrorDialogProps): JSX.Element {
   return (
     <dialog
-      className={`${open ? 'fixed' : 'hidden'} inset-0 flex h-full w-full items-center justify-center bg-gray-900/30 text-gray-700 backdrop-blur dark:bg-gray-100/30 dark:text-gray-300`}
+      className={`${open ? 'fixed' : 'hidden'} inset-0 flex h-full w-full items-center justify-center bg-gray-900/30 text-gray-700 backdrop-blur-sm dark:bg-gray-100/30 dark:text-gray-300`}
       open={open}
     >
-      <div className="flex flex-col gap-4 rounded bg-gray-100 p-4 shadow dark:bg-gray-900">
+      <div className="flex flex-col gap-4 rounded-sm bg-gray-100 p-4 shadow-sm dark:bg-gray-900">
         <div className="flex max-w-80 flex-col gap-2">
           <p className="font-semibold text-2xl">Something Wrong!</p>
           {message !== null ? <p>{message}</p> : null}

@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { ButtonComponent } from './Button+Component';
 import { type ButtonProps, useButtonState } from './Button+State';
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { Suspense, useState } from 'react';
+import { type JSX, Suspense, useState } from 'react';
 import { OpenSearchManager } from './OpenSearchManager';
 import { PageComponent } from './Page+Component';
 import { usePageState } from './Page+State';

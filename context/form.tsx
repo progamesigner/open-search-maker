@@ -2,6 +2,7 @@
 
 import {
   type Dispatch,
+  type JSX,
   type PropsWithChildren,
   type SetStateAction,
   createContext,

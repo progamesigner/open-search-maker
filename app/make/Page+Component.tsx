@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import Button from '../../components/Button/Button';
 import type { UsePageState } from './Page+State';
 
@@ -27,7 +28,7 @@ export function PageComponent({
           <p>
             Go to
             <mark
-              className="mx-1 rounded bg-red-400 px-1 text-gray-900 dark:bg-red-500 dark:text-gray-100"
+              className="mx-1 rounded-sm bg-red-400 px-1 text-gray-900 dark:bg-red-500 dark:text-gray-100"
               onClick={onMarkClicked}
               {...{}}
             >

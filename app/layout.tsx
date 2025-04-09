@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import type { PropsWithChildren } from 'react';
+import type { JSX, PropsWithChildren } from 'react';
 
 import { FormProvider } from '../context/form';
 

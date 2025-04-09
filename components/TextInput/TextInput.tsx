@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { TextInputComponent } from './TextInput+Component';
 import { type TextInputProps, useTextInputState } from './TextInput+State';
 

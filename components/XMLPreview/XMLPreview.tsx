@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { XMLPreviewComponent } from './XMLPreview+Component';
 import { type XMLPreviewProps, useXMLPreviewState } from './XMLPreview+State';
 

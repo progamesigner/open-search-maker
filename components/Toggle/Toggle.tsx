@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { ToggleComponent } from './Toggle+Component';
 import { type ToggleProps, useToggleState } from './Toggle+State';
 

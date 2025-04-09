@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useCallback } from 'react';
+import { type JSX, useCallback } from 'react';
 import { PageComponent } from './Page+Component';
 import { type UsePageStateProps, usePageState } from './Page+State';
 

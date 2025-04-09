@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import type { UseImageInputState } from './ImageInput+State';
 
 export function ImageInputComponent({
@@ -30,7 +31,7 @@ export function ImageInputComponent({
         </div>
         <input
           type="text"
-          className={`flex-grow bg-gray-300 p-2 text-gray-600 transition-opacity disabled:opacity-30 dark:bg-gray-600 dark:text-gray-300 ${className} rounded-none outline-none`}
+          className={`grow bg-gray-300 p-2 text-gray-600 transition-opacity disabled:opacity-30 dark:bg-gray-600 dark:text-gray-300 ${className} rounded-none outline-hidden`}
           required={required}
           value={value ?? ''}
           {...props}

@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { type JSX, useMemo } from 'react';
 import { default as Button } from '../../components/Button/Button';
 import ImageInput from '../../components/ImageInput/ImageInput';
 import { default as TextInput } from '../../components/TextInput/TextInput';
@@ -45,11 +45,11 @@ export function PageComponent({
     <>
       <div className="flex flex-col gap-4 md:flex-row">
         <XMLPreview
-          className="order-3 flex-grow overflow-x-hidden md:order-1 md:basis-0"
+          className="order-3 grow overflow-x-hidden md:order-1 md:basis-0"
           xml={hasValidXML ? xml : null}
         />
         <div className="order-2 border border-gray-300 dark:border-gray-700" />
-        <div className="order-1 flex-grow basis-0 md:order-3">
+        <div className="order-1 grow basis-0 md:order-3">
           <form className="flex flex-col gap-4" onSubmit={onSubmitted}>
             <div>
               <Toggle

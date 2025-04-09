@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { ImageInputComponent } from './ImageInput+Component';
 import { type ImageInputProps, useImageInputState } from './ImageInput+State';
 
