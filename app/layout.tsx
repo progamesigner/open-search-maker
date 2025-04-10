@@ -10,6 +10,36 @@ export const metadata: Metadata = {
   title: 'Open Search Maker',
   description:
     'A simple tool to easily add custom search engines to browsers that support OpenSearch.',
+  icons: {
+    apple: {
+      sizes: '180x180',
+      url: '/apple-touch-icon.png',
+    },
+    icon: [
+      {
+        type: 'image/png',
+        sizes: '512x512',
+        url: '/favicon-512x512.png',
+      },
+      {
+        type: 'image/png',
+        sizes: '192x192',
+        url: '/favicon-192x192.png',
+      },
+      {
+        type: 'image/png',
+        sizes: '32x32',
+        url: '/favicon-32x32.png',
+      },
+      {
+        sizes: '16x16',
+        type: 'image/png',
+        url: '/favicon-16x16.png',
+      },
+      { url: '/favicon.ico' },
+    ],
+    shortcut: '/favicon.ico',
+  },
 };
 
 export default function Layout({ children }: PropsWithChildren): JSX.Element {
