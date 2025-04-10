@@ -1,10 +1,11 @@
 import type { JSX } from 'react';
 import { default as Button } from '../../components/Button/Button';
-import ImageInput from '../../components/ImageInput/ImageInput';
+import { default as ImageInput } from '../../components/ImageInput/ImageInput';
+import { default as Select } from '../../components/Select/Select';
 import { default as TextInput } from '../../components/TextInput/TextInput';
-import Toggle from '../../components/Toggle/Toggle';
+import { default as Toggle } from '../../components/Toggle/Toggle';
 import { default as XMLPreview } from '../../components/XMLPreview/XMLPreview';
-import { Localized } from '../../context/localization';
+import { LOCALES, Localized } from '../../context/localization';
 import { ErrorDialog } from './ErrorDialog';
 import type { UsePageState } from './Page+State';
 
@@ -15,12 +16,14 @@ export function PageComponent({
   inputEncoding,
   isUploaded,
   isUploading,
+  locale,
   name,
   onDescriptionChanged,
   onDialogCloseClicked,
   onImageChanged,
   onImageFileChanged,
   onInputEncodingChanged,
+  onLocaleChanged,
   onNameChanged,
   onParamsChanged,
   onShowAdvancedOptionsChanged,
@@ -51,7 +54,7 @@ export function PageComponent({
         <div className="order-2 border border-gray-300 dark:border-gray-700" />
         <div className="order-1 grow basis-0 md:order-3">
           <form className="flex flex-col gap-4" onSubmit={onSubmitted}>
-            <div>
+            <div className="flex flex-row justify-between">
               <Toggle
                 checked={showAdvancedOptions}
                 onChange={onShowAdvancedOptionsChanged}
@@ -62,6 +65,19 @@ export function PageComponent({
                   </Localized>
                 </p>
               </Toggle>
+              <div>
+                <Select
+                  className="py-0.5"
+                  value={locale}
+                  onChange={onLocaleChanged}
+                >
+                  {Object.entries(LOCALES).map(([locale, name]) => (
+                    <option value={locale} key={locale}>
+                      {name}
+                    </option>
+                  ))}
+                </Select>
+              </div>
             </div>
 
             <div>

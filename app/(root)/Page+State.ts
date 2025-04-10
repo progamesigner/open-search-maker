@@ -1,13 +1,17 @@
+import { negotiateLanguages } from '@fluent/langneg';
+import { useSearchParams } from 'next/navigation';
 import {
   type ChangeEventHandler,
   type FormEventHandler,
   type MouseEventHandler,
   use,
   useCallback,
+  useEffect,
   useMemo,
   useState,
 } from 'react';
 import { FormContext } from '../../context/form';
+import { LOCALES, Locale } from '../../context/localization';
 import { useOpenSearchDescription } from '../../lib/openSearch';
 
 export interface UsePageStateProps {
@@ -22,12 +26,14 @@ export interface UsePageState {
   inputEncoding: string;
   isUploaded: boolean;
   isUploading: boolean;
+  locale: string;
   name: string;
   onDescriptionChanged: ChangeEventHandler<HTMLInputElement>;
   onDialogCloseClicked: MouseEventHandler<HTMLButtonElement>;
   onImageChanged: ChangeEventHandler<HTMLInputElement>;
   onImageFileChanged: ChangeEventHandler<HTMLInputElement>;
   onInputEncodingChanged: ChangeEventHandler<HTMLInputElement>;
+  onLocaleChanged: ChangeEventHandler<HTMLSelectElement>;
   onNameChanged: ChangeEventHandler<HTMLInputElement>;
   onParamsChanged: ChangeEventHandler<HTMLInputElement>;
   onShowAdvancedOptionsChanged: ChangeEventHandler<HTMLInputElement>;
@@ -81,8 +87,11 @@ export function usePageState({
     usePostMethod,
   } = use(FormContext);
 
+  const searchParams = useSearchParams();
+
   const [isUploaded, setIsUploaded] = useState<boolean>(false);
   const [isUploading, setIsUploading] = useState<boolean>(false);
+  const [locale, setLocale] = useState<string>(Locale.EN_US);
   const [uploadError, setUploadError] = useState<Error | null>(null);
 
   const isValidXML = useMemo(() => {
@@ -209,6 +218,20 @@ export function usePageState({
     ],
   );
 
+  const onLocaleChanged = useCallback<ChangeEventHandler<HTMLSelectElement>>(
+    (event): void => {
+      const locale = event.currentTarget.value;
+      const params = new URLSearchParams(window.location.search);
+      params.set('l', locale);
+
+      event.preventDefault();
+
+      setLocale(locale);
+      window.location.search = params.toString();
+    },
+    [],
+  );
+
   const onSubmitted = useCallback<FormEventHandler<HTMLFormElement>>(
     (event): void => {
       event.preventDefault();
@@ -256,6 +279,17 @@ export function usePageState({
     [setParams, setUsePostMethod],
   );
 
+  useEffect(() => {
+    const [locale] = negotiateLanguages(
+      [searchParams.get('l') ?? '', ...window.navigator.languages],
+      Object.keys(LOCALES),
+      {
+        defaultLocale: Locale.EN_US,
+      },
+    );
+    setLocale(locale);
+  }, [searchParams]);
+
   return {
     description: description ?? '',
     hasValidXML: isValidXML,
@@ -263,12 +297,14 @@ export function usePageState({
     inputEncoding,
     isUploaded,
     isUploading,
+    locale,
     name: name ?? '',
     onDescriptionChanged,
     onDialogCloseClicked,
     onImageChanged,
     onImageFileChanged,
     onInputEncodingChanged,
+    onLocaleChanged,
     onNameChanged,
     onParamsChanged,
     onShowAdvancedOptionsChanged,

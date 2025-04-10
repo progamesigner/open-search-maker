@@ -3,7 +3,6 @@ import type { UseToggleState } from './Toggle+State';
 
 export function ToggleComponent({
   children,
-  className,
   checked,
   ...props
 }: UseToggleState): JSX.Element {
