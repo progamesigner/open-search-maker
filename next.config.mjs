@@ -4,4 +4,9 @@ export default {
     ignoreDuringBuilds: true,
   },
   output: 'export',
+  turbopack: {
+    rules: {
+      '*.ftl': { loaders: ['raw-loader'], as: '*.ts' },
+    },
+  },
 };
