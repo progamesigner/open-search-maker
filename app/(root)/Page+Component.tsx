@@ -67,7 +67,7 @@ export function PageComponent({
               </Toggle>
               <div>
                 <Select
-                  className="py-0.5"
+                  className="py-0.5 text-right"
                   value={locale}
                   onChange={onLocaleChanged}
                 >
