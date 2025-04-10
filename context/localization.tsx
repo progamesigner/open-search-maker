@@ -47,9 +47,14 @@ export function LocalizationProvider({
   );
 
   useEffect(() => {
-    const locales = negotiateLanguages(window.navigator.languages, LOCALES, {
-      defaultLocale: Locale.EN_US,
-    });
+    const params = new URLSearchParams(window.location.search);
+    const locales = negotiateLanguages(
+      [params.get('l') ?? '', ...window.navigator.languages],
+      LOCALES,
+      {
+        defaultLocale: Locale.EN_US,
+      },
+    );
     setLocalization(new ReactLocalization(generateBundles(locales)));
   }, []);
 
