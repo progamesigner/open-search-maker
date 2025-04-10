@@ -1,12 +1,26 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { type JSX, useCallback } from 'react';
+import { type JSX, Suspense, use, useCallback } from 'react';
+import { LocalizationContext } from '../../context/localization';
+import { LocaleManager } from './LocaleManager';
 import { PageComponent } from './Page+Component';
 import { type UsePageStateProps, usePageState } from './Page+State';
 
 export default function Page(): JSX.Element {
   const router = useRouter();
+
+  const { locale, setLocale } = use(LocalizationContext);
+
+  const onLocaleUpdated = useCallback<UsePageStateProps['onLocaleUpdated']>(
+    (locale: string): void => {
+      const params = new URLSearchParams();
+      setLocale(locale);
+      params.append('l', locale);
+      router.push(`/?${params.toString()}`);
+    },
+    [router, setLocale],
+  );
 
   const onRedirect = useCallback<UsePageStateProps['onRedirect']>(
     (name: string, url: string): void => {
@@ -35,5 +49,19 @@ export default function Page(): JSX.Element {
     [],
   );
 
-  return <PageComponent {...usePageState({ onRedirect, onUpload })} />;
+  return (
+    <>
+      <Suspense>
+        <LocaleManager onLocaleChanged={setLocale} />
+      </Suspense>
+      <PageComponent
+        {...usePageState({
+          locale,
+          onLocaleUpdated,
+          onRedirect,
+          onUpload,
+        })}
+      />
+    </>
+  );
 }
