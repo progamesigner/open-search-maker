@@ -2,6 +2,7 @@ import type { JSX } from 'react';
 import type { UseImageInputState } from './ImageInput+State';
 
 export function ImageInputComponent({
+  browser,
   className,
   label,
   onFileChanged,
@@ -38,7 +39,7 @@ export function ImageInputComponent({
         />
         <label className="flex cursor-pointer items-center justify-center rounded-e bg-gray-600 text-gray-300 transition-colors hover:bg-gray-500 dark:bg-gray-300 dark:text-gray-600 dark:hover:bg-gray-400">
           <input className="hidden" type="file" onChange={onFileChanged} />
-          <div className="p-2">Browser</div>
+          <div className="p-2">{browser}</div>
         </label>
       </div>
     </label>

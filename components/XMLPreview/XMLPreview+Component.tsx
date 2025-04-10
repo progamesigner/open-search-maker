@@ -2,6 +2,8 @@ import type { JSX } from 'react';
 import type { UseXMLPreviewState } from './XMLPreview+State';
 
 export function XMLPreviewComponent({
+  message,
+  tab,
   xml,
   ...props
 }: UseXMLPreviewState): JSX.Element {
@@ -14,7 +16,7 @@ export function XMLPreviewComponent({
               !
             </p>
           ) : null}
-          Open Search
+          {tab}
         </div>
         <a
           className="ms-auto flex size-6 items-center justify-center rounded-full bg-gray-700 font-bold text-gray-300 text-sm transition-colors hover:bg-gray-800 dark:bg-gray-300 dark:text-gray-700 dark:hover:bg-gray-400"
@@ -31,7 +33,7 @@ export function XMLPreviewComponent({
             <pre>{xml}</pre>
           ) : (
             <p className="text-center text-red-700 dark:text-red-300">
-              Name &amp; valid URLs are required.
+              {message}
             </p>
           )}
         </div>
