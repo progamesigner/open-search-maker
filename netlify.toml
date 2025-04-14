@@ -1,7 +1,7 @@
 [build]
-  base = "/"
-  command = "npm run build"
-  publish = "out"
+base = "/"
+command = "npm run build"
+publish = "out"
 
 [template.environment]
-  NEXT_PUBLIC_DPASTE_API = ""
+NEXT_PUBLIC_DPASTE_API = ""
