@@ -1,0 +1,11 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "open-search-maker",
+  "compatibility_date": "2026-10-16",
+  "workers_dev": false,
+  "preview_urls": true,
+  "routes": [
+    { "pattern": "open-search-maker.0x148.com", "custom_domain": true, "previews_enabled": false }
+  ],
+  "assets": { "directory": "./out", "not_found_handling": "404-page" }
+}
